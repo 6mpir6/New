@@ -1,8 +1,27 @@
-<canvas id="canvas3d"></canvas>
-<script type="module">
-       import { Application } from '@splinetool/runtime';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scene with Search Bar</title>
+</head>
+<body>
+    <input type="text" id="searchBar" placeholder="Search...">
+    <canvas id="canvas3d"></canvas>
+    <script type="module">
+        import { Application } from '@splinetool/runtime';
 
-const canvas = document.getElementById('canvas3d');
-const app = new Application(canvas);
-app.load('https://prod.spline.design/WUwHGvCkfXGLXiQN/scene.splinecode');
-       <script>
+        const canvas = document.getElementById('canvas3d');
+        const app = new Application(canvas);
+        app.load('https://prod.spline.design/WUwHGvCkfXGLXiQN/scene.splinecode')
+            .then(() => {
+                const searchBar = document.getElementById('searchBar');
+                searchBar.addEventListener('input', (event) => {
+                    const searchText = event.target.value.toLowerCase();
+                    // Logic to handle search input
+                    console.log(`Searching for: ${searchText}`);
+                });
+            });
+    </script>
+</body>
+</html>
