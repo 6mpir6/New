@@ -16,20 +16,24 @@
 
     .container {
       position: absolute;
-      top: 10px;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translate(-50%, -50%);
       background-color: rgba(255, 255, 255, 0.8);
       padding: 40px; /* Increased padding */
-      width: auto; /* Ensures content dictates the width */
       border-radius: 10px;
       z-index: 10;  /* Ensure the form is above the canvas */
+      display: flex;
+      align-items: center; /* Center items vertically */
+      justify-content: center; /* Center items horizontally */
     }
 
     form {
       display: flex;
       flex-direction: column;
       gap: 10px;
+      width: 100%;
+      max-width: 400px; /* Optionally set a max-width */
     }
 
     input[type="text"] {
@@ -81,5 +85,4 @@
   </script>
 </body>
 </html>
-
 
