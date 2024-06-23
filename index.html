@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Form with 3D Canvas</title>
   <style>
-    /* Basic styling for the form */
     body {
       font-family: Arial, sans-serif;
     }
@@ -37,6 +36,7 @@
       border: 1px solid #ccc;
       width: 100%;
       height: 400px;
+      touch-action: none; /* Prevents default touch interactions */
     }
   </style>
 </head>
@@ -55,27 +55,47 @@
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.55/build/runtime.js';
 
     const canvas = document.getElementById('canvas3d');
-    const spline = new Application(canvas);
-
-    // Function to get the value of the 'firstname' parameter from the URL
+    const spline = new Application(canvas, { alpha: true, antialias: true });
+    
     function getFirstNameFromURL() {
       const queryParams = new URLSearchParams(window.location.search);
-      return queryParams.get('firstname') || 'First Name'; // Provide a default value if 'firstname' is not found
+      return queryParams.get('firstname') || ''; // Empty string to alleviate setting default text
     }
 
-    // Load the Spline scene and then set the variable based on the URL parameter
-    spline.load('https://prod.spline.design/DuTkjiyZH1xiEiZy/scene.splinecode')
-      .then(() => {
-        const firstNameValue = getFirstNameFromURL();
+    spline.load('https://prod.spline.design/DuTkjiyZH1xiEiZy/scene.splinetool').then(() => {
+      const firstNameValue = getFirstNameFromURL();
+      if (firstNameValue) {
         spline.setVariable('wickydesign', firstNameValue);
-      });
+      }
+    });
 
-    // Optionally, add event listeners to handle form inputs for advanced interactivity
-    // Example: Update Spline variable when form changes
-    document.getElementById('firstname').addEventListener('input', (event) => {
+    // Throttle input event listeners to optimize performance
+    const throttle = (func, limit) => {
+      let lastFunc;
+      let lastRan;
+      return function() {
+        const context = this;
+        const args = arguments;
+        if (!lastRan) {
+          func.apply(context, args);
+          lastRan = Date.now();
+        } else {
+          clearTimeout(lastFunc);
+          lastFunc = setTimeout(function() {
+            if ((Date.now() - lastRan) >= limit) {
+              func.apply(context, args);
+              lastRan = Date.now();
+            }
+          }, limit - (Date.now() - lastRan));
+        }
+      };
+    };
+
+    document.getElementById('firstname').addEventListener('input', throttle((event) => {
       const firstNameValue = event.target.value;
       spline.setVariable('wickydesign', firstNameValue);
-    });
+    }, 200)); // Adjust the throttle limit as needed
+
   </script>
 </body>
 </html>
