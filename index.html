@@ -89,16 +89,25 @@
     });
 
     async function callGenerateAPI(prompt) {
-      const response = await fetch('/api/generate', {
+      const OPENAI_API_KEY = 'YOUR_OPENAI_API_KEY_HERE'; // Replace with your actual API key
+
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer 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`
         },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify({
+          model: "gpt-4o",
+          messages: [
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: prompt }
+          ]
+        })
       });
 
       const data = await response.json();
-      return data;
+      return data.choices[0].message.content;
     }
 
     document.getElementById('generate').addEventListener('click', async () => {
@@ -114,4 +123,3 @@
   </script>
 </body>
 </html>
-
