@@ -13,22 +13,20 @@
       overflow: hidden;
       font-family: Arial, sans-serif;
     }
-
     .container {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: rgba(255, 255, 255, 0.8);
-      padding: 40px; 
+      padding: 40px;
       border-radius: 10px;
       z-index: 10;
       display: flex;
       flex-direction: column;
-      align-items: center; 
-      justify-content: center; 
+      align-items: center;
+      justify-content: center;
     }
-
     form {
       display: flex;
       flex-direction: column;
@@ -37,14 +35,12 @@
       width: 100%;
       max-width: 400px;
     }
-
     input[type="text"] {
       width: 100%;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
     }
-    
     button {
       padding: 10px 20px;
       border: none;
@@ -53,7 +49,6 @@
       color: white;
       cursor: pointer;
     }
-
     #canvas3d {
       position: fixed;
       top: 0;
@@ -61,14 +56,14 @@
       width: 100%;
       height: 100%;
       display: block;
-      z-index: 1;  
+      z-index: 1;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <form id="user-form">
-      <input type="text" id="user-prompt" name="userprompt" placeholder="Enter your prompt" value="${widget.userPrompt}">
+      <input type="text" id="user-prompt" name="userprompt" placeholder="Enter your prompt">
       <button type="button" id="generate-button">Generate</button>
       <input type="text" id="title" name="title" placeholder="Title">
       <input type="text" id="description" name="description" placeholder="Description">
@@ -89,72 +84,51 @@
     </div>
   </div>
   <canvas id="canvas3d"></canvas>
-
   <script type="module">
     import { Application } from 'https://unpkg.com/@splinetool/runtime@1.0.55/build/runtime.js';
 
     const canvas = document.getElementById('canvas3d');
     const spline = new Application(canvas);
-
     spline.load('https://prod.spline.design/8S8SZtENn4Mqj-Ws/scene.splinecode').then(() => {
-      const button1 = document.getElementById('button1');
-      button1.addEventListener('click', () => {
-        spline.setVariables({ brown: 100, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
-      });
+      const setColorVariables = (colors) => {
+        spline.setVariables(colors);
+      };
 
-      const button2 = document.getElementById('button2');
-      button2.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 100, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button1').addEventListener('click', () => {
+        setColorVariables({ brown: 100, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button3 = document.getElementById('button3');
-      button3.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 100, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button2').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 100, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button4 = document.getElementById('button4');
-      button4.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 100, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button3').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 100, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button5 = document.getElementById('button5');
-      button5.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 100, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button4').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 100, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button6 = document.getElementById('button6');
-      button6.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 100, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button5').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 100, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button7 = document.getElementById('button7');
-      button7.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 100, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button6').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 100, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button8 = document.getElementById('button8');
-      button8.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 100, red: 0, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button7').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 100, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button9 = document.getElementById('button9');
-      button9.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 100, yellow: 0, orange: 0, green: 0 });
+      document.getElementById('button8').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 100, red: 0, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button10 = document.getElementById('button10');
-      button10.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 100, orange: 0, green: 0 });
+      document.getElementById('button9').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 100, yellow: 0, orange: 0, green: 0 });
       });
-
-      const button11 = document.getElementById('button11');
-      button11.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 100, green: 0 });
+      document.getElementById('button10').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 100, orange: 0, green: 0 });
       });
-
-      const button12 = document.getElementById('button12');
-      button12.addEventListener('click', () => {
-        spline.setVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 100 });
+      document.getElementById('button11').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 100, green: 0 });
+      });
+      document.getElementById('button12').addEventListener('click', () => {
+        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 100 });
       });
     });
 
@@ -170,28 +144,20 @@
 
     document.getElementById('generate-button').addEventListener('click', async () => {
       const userPrompt = document.getElementById('user-prompt').value;
-
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ${widget.apiKey}'
+          'Authorization': 'Bearer YOUR_OPENAI_API_KEY'  // Replace YOUR_OPENAI_API_KEY with your actual API key
         },
         body: JSON.stringify({
           model: "gpt-4",
           messages: [
-            {
-              role: "system",
-              content: "You are a helpful assistant."
-            },
-            {
-              role: "user",
-              content: userPrompt
-            }
+            { role: "system", content: "You are a helpful assistant." },
+            { role: "user", content: userPrompt }
           ]
         })
       });
-
       const data = await response.json();
       const completion = data.choices[0].message.content;
       const descriptionField = document.getElementById('description');
@@ -201,14 +167,9 @@
       descriptionField.dispatchEvent(new Event('input'));
 
       // Send the updated response back to Flutter
-      const message = {
-        action: 'updateGptResponse',
-        description: completion
-      };
+      const message = { action: 'updateGptResponse', description: completion };
       window.flutter_invoke.postMessage(JSON.stringify(message));
     });
   </script>
 </body>
 </html>
-
-
