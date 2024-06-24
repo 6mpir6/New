@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Form with 3D Canvas</title>
+  <title>3D Canvas with Spline and GPT-4 Integration</title>
   <style>
     body, html {
       margin: 0;
@@ -58,29 +58,42 @@
       display: block;
       z-index: 1;
     }
+    .color-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .color-buttons button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <form id="user-form">
       <input type="text" id="user-prompt" name="userprompt" placeholder="Enter your prompt">
-      <button type="button" id="generate-button">Generate</button>
+      <button type="button" id="generate-button">Generate Description</button>
       <input type="text" id="title" name="title" placeholder="Title">
       <input type="text" id="description" name="description" placeholder="Description">
     </form>
-    <div>
-      <button id="button1">Brown</button>
-      <button id="button2">Pink</button>
-      <button id="button3">Aqua</button>
-      <button id="button4">Purple</button>
-      <button id="button5">Black</button>
-      <button id="button6">White</button>
-      <button id="button7">Grey</button>
-      <button id="button8">Blue</button>
-      <button id="button9">Red</button>
-      <button id="button10">Yellow</button>
-      <button id="button11">Orange</button>
-      <button id="button12">Green</button>
+    <div class="color-buttons">
+      <button id="button1" style="background-color: brown;">Brown</button>
+      <button id="button2" style="background-color: pink;">Pink</button>
+      <button id="button3" style="background-color: aqua;">Aqua</button>
+      <button id="button4" style="background-color: purple;">Purple</button>
+      <button id="button5" style="background-color: black;">Black</button>
+      <button id="button6" style="background-color: white;">White</button>
+      <button id="button7" style="background-color: grey;">Grey</button>
+      <button id="button8" style="background-color: blue;">Blue</button>
+      <button id="button9" style="background-color: red;">Red</button>
+      <button id="button10" style="background-color: yellow;">Yellow</button>
+      <button id="button11" style="background-color: orange;">Orange</button>
+      <button id="button12" style="background-color: green;">Green</button>
     </div>
   </div>
   <canvas id="canvas3d"></canvas>
@@ -95,40 +108,40 @@
       };
 
       document.getElementById('button1').addEventListener('click', () => {
-        setColorVariables({ brown: 100, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 100, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button2').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 100, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 100, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button3').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 100, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 100, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button4').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 100, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 100, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button5').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 100, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 100, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button6').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 100, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 100, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button7').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 100, blue: 0, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 100, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button8').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 100, red: 0, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 100, Red: 0, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button9').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 100, yellow: 0, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 100, Yellow: 0, Orange: 0, Green: 0 });
       });
       document.getElementById('button10').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 100, orange: 0, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 100, Orange: 0, Green: 0 });
       });
       document.getElementById('button11').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 100, green: 0 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 100, Green: 0 });
       });
       document.getElementById('button12').addEventListener('click', () => {
-        setColorVariables({ brown: 0, pink: 0, aqua: 0, purple: 0, black: 0, white: 0, grey: 0, blue: 0, red: 0, yellow: 0, orange: 0, green: 100 });
+        setColorVariables({ Brown: 0, Pink: 0, Aqua: 0, Purple: 0, Black: 0, White: 0, Grey: 0, Blue: 0, Red: 0, Yellow: 0, Orange: 0, Green: 100 });
       });
     });
 
@@ -165,11 +178,8 @@
 
       // Trigger the input event to refresh Spline view
       descriptionField.dispatchEvent(new Event('input'));
-
-      // Send the updated response back to Flutter
-      const message = { action: 'updateGptResponse', description: completion };
-      window.flutter_invoke.postMessage(JSON.stringify(message));
     });
   </script>
 </body>
 </html>
+
